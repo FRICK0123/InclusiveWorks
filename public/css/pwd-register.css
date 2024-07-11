@@ -1,0 +1,193 @@
+#form-container {
+    border: 1px solid black;
+    padding: 5%;
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+    -webkit-box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+    -moz-box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+}
+
+#form-container form input {
+    border: 1px solid black;
+}
+
+#form-container form input:hover {
+    cursor: pointer;
+    border: 2px solid #007BFF;
+}
+
+@media (max-width: 700px) {
+    #form-container {
+        width: 100%;
+    }
+}
+
+#pwd-register-return-btn {
+    border: 1px solid black;
+}
+
+#pwd-register-btn:hover {
+    background-color: #053c76;
+}
+
+#pwd-register-return-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+/* The overlay effect with black background */
+
+/*Pwd Firstname*/
+.pwd-firstname-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-firstname-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Lastname*/
+.pwd-lastname-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-lastname-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Email*/
+.pwd-email-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-email-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Age*/
+.pwd-age-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-age-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Contact*/
+.pwd-contact-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-contact-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Username*/
+.pwd-username-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-username-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Password*/
+.pwd-password-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-password-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Confirm Password*/
+.pwd-confirm-password-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-confirm-password-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*Pwd Confirm Password*/
+.pwd-address-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-address-close {
+    position: absolute;
+    top: -7%;
+    left: -10%;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}

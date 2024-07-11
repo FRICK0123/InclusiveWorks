@@ -1,0 +1,76 @@
+#form-container{
+    border: 1px solid black;
+    padding: 5%;
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+    -webkit-box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+    -moz-box-shadow: 10px 10px 14px -7px rgba(0, 0, 0, 0.51);
+}
+
+#form-container form input{
+    border: 1px solid black;
+}
+
+#login-username:hover{
+    cursor: pointer;
+    border: 2px solid #007BFF;
+}
+
+#login-password:hover {
+    cursor: pointer;
+    border: 2px solid #007BFF;
+}
+
+@media (max-width: 700px){
+    #form-container{
+        width: 100%;
+    }
+}
+
+/*Full Search*/
+/* The overlay effect with black background */
+.login-username-overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#login-username-close{
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+.login-password-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#login-password-close {
+    position: absolute;
+    top: 0;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}
+
+#login-return-btn{
+    border: 1px solid black;
+}
+
+#login-btn:hover{
+    background-color: #053c76;
+}
+
+#login-return-btn:hover {
+    background-color: black;
+    color: white;
+}

@@ -1,0 +1,28 @@
+#employer-company-container{
+    width: 50%;
+    border: 1px solid black;
+}
+
+#verification-box {
+    border: 1px solid black;
+    width: 50%;
+}
+
+#employer-summary {
+    border: 1px solid black;
+    width: 50%;
+}
+
+@media (max-width:900px){
+    #employer-company-container {
+        width: 100%;
+    }
+
+    #verification-box {
+        width: 100%;
+    }
+
+    #employer-summary {
+        width: 100%;
+    }
+}

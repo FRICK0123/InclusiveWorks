@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Jobseeker;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+
+class JobseekersController extends Controller
+{
+    //Job Seekers Personal Page Route
+    public function jobseekersPersonal()
+    {
+        return view('platform-users.pwd-jobseekers.jobseekers-personal');
+    }
+
+    //Job Seekers Personal Page Validation
+    public function jobseekersPersonalValidation(Request $request)
+    {
+        $personal = $request->validate(
+            [
+                'pwd-firstname' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
+                'pwd-lastname' => ['required', 'regex:/^[a-zA-Z\s]*$/'],
+                'pwd-email' => ['required', 'unique:jobseekers,pwd-email', 'email'],
+                'pwd-age' => ['required'],
+                'pwd-contact' => ['required', 'regex:/^\\d{4}-\\d{3}-\\d{4}$/'],
+                'pwd-username' => ['required', 'min:5', 'unique:jobseekers,pwd-username'],
+                'pwd-password' => ['required', 'min:8'],
+                'pwd-confirm-password' => ['required', 'same:pwd-password'],
+            ],
+            [ //error messages
+                'pwd-firstname.regex' => 'The first name field must contain only letters and spaces.',
+                'pwd-firstname.required' => 'The first name field should not be empty',
+                'pwd-lastname.regex' => 'The last name field must contain only letters and spaces.',
+                'pwd-lastname.required' => 'The last name field should not be empty',
+                'pwd-email.required' => 'The email field should not be empty',
+                'pwd-email.unique' => 'The email is already in use',
+                'pwd-email.email' => 'The field must be a valid email address',
+                'pwd-age.required' => 'The age field should not be empty',
+                'pwd-contact.required' => 'The contact number field should not be empty',
+                'pwd-contact.regex' => 'The contact number should follow the specified format',
+                'pwd-username.required' => 'The username field should not be empty',
+                'pwd-username.min' => 'The username should be 5 characters or more',
+                'pwd-username.unique' => 'The username is already in use',
+                'pwd-password.required' => 'The password field is required.',
+                'pwd-password.min' => 'The password must be at least 8 characters.',
+                'pwd-confirm-password.required' => 'The confirm password field is required.',
+                'pwd-confirm-password.same' => 'The password does not match.'
+            ]
+        );
+        Session::put([
+            'pwd-firstname' => $personal['pwd-firstname'],
+            'pwd-lastname' => $personal['pwd-lastname'],
+            'pwd-email' => $personal['pwd-email'],
+            'pwd-age' => $personal['pwd-age'],
+            'pwd-contact' => $personal['pwd-contact'],
+            'pwd-username' => $personal['pwd-username'],
+            'pwd-password' => $personal['pwd-password'],
+        ]);
+
+        return redirect()->route('jobseekers_professional_page');
+    }
+
+    //Job Seekers Professional Route
+    public function jobseekersProfessional()
+    {
+        return view('platform-users.pwd-jobseekers.jobseekers-professional');
+    }
+
+    //Job Seekers Professional Page Validation
+    public function jobseekersProfessionalValidation(Request $request)
+    {
+        $professional = $request->validate(
+            [
+                'pwd-address' => ['required'],
+                'pwd-education' => ['required'],
+                'pwd-resume' => ['required', 'file', 'mimes:pdf']
+            ],
+            [ //error messages
+                'pwd-address.required' => 'The address field should not be empty',
+                'pwd-education.required' => 'Please Select Educational Attainment',
+                'pwd-resume.required' => 'Resume Required',
+                'pwd-resume.file' => 'Please upload a valid file',
+                'pwd-resume.mimes' => 'Only PDF files are allowed',
+            ]
+        );
+
+        //Resume File upload
+        if ($request->hasFile('pwd-resume')) {
+            $file = $request->file('pwd-resume');
+            $fileName = time() . '.' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $fileName);
+        }
+        Session::put([
+            'pwd-address' => $professional['pwd-address'],
+            'pwd-education' => $professional['pwd-education'],
+            'pwd-resume' => $fileName,
+        ]);
+        return redirect()->route('jobseekers_disabilities_page');
+    }
+
+    //Job seekers disabilities page Route
+    public function jobseekersDisabilities()
+    {
+        return view('platform-users.pwd-jobseekers.jobseekers-disabilities');
+    }
+    //Job seekers disabilitites validation
+    public function jobseekersDisabilitiesValidation()
+    {
+        Session::put('pwd-disability', request('pwd-disability'));
+        return redirect()->route('jobseekers_profile_page');
+    }
+
+    //Job seekers profile page Route
+    public function jobseekersProfile()
+    {
+        return view('platform-users.pwd-jobseekers.jobseekers-profile');
+    }
+    //Job seekers profile validation
+    public function jobseekersProfileValidation(Request $request)
+    {
+        $profile = $request->validate(
+            [
+                'pwd-profile' => ['required', 'file', 'mimes:png,jpeg,jpg']
+            ],
+            [ //error messages
+                'pwd-profile.required' => 'Profile Picture Required',
+                'pwd-profile.file' => 'Please upload a valid file',
+                'pwd-profile.mimes' => 'Only PNG, JPG, JPEG files are allowed',
+            ]
+        );
+
+        //Resume File upload
+        if ($request->hasFile('pwd-profile')) {
+            $file = $request->file('pwd-profile');
+            $fileName = time() . '.' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $fileName);
+        }
+        Session::put('pwd-profile', $fileName);
+        return redirect()->route('jobseekers_summary_page');
+    }
+
+    //Jobseeekers Summary
+    public function jobseekersSummary()
+    {
+        return view('platform-users.pwd-jobseekers.jobseekers-summary');
+    }
+
+    //Jobseeekers Summary Validation
+    public function jobseekersSummaryValidation(Request $request)
+    {
+        $pwd_password = Hash::make($request->post('pwd-password'));
+        $jobseeker = Jobseeker::create([
+            'pwd-firstname' => $request->post('pwd-firstname'),
+            'pwd-lastname' => $request->post('pwd-lastname'),
+            'pwd-email' => $request->post('pwd-email'),
+            'pwd-age' => $request->post('pwd-age'),
+            'pwd-contact' => $request->post('pwd-contact'),
+            'pwd-username' => $request->post('pwd-username'),
+            'pwd-password' => $pwd_password,
+            'pwd-address' => $request->post('pwd-address'),
+            'pwd-education' => $request->post('pwd-education'),
+            'pwd-resume' => $request->post('pwd-resume'),
+            'pwd-disabilities' => $request->post('pwd-disability'),
+            'pwd-profile' => $request->post('pwd-profile'),
+            'usertype' => $request->post('usertype'),
+        ]);
+
+        Session::flush();
+        return redirect()->route('homepage')->with('Registered', "You are Registered Successfully");
+    }
+}
