@@ -33,7 +33,7 @@ class LoginController extends Controller
 
         if ($jobseeker && Hash::check($password, $jobseeker->{'pwd-password'})) {
             // Authentication for jobseeker successful
-            auth()->guard('jobseeker')->loginUsingId($jobseeker->pwdID);
+            auth()->loginUsingId($jobseeker->pwdID);
             Session::put('isLoggedin', true);
             Session::put([
                 'pwdID' => $jobseeker->pwdID,
@@ -52,7 +52,7 @@ class LoginController extends Controller
             return redirect()->route('jobseeker_dashboard');
         } elseif ($employer && Hash::check($password, $employer->{'company-password'})) {
             // Authentication for employer successful
-            auth()->guard('employer')->loginUsingId($employer->employerID);
+            auth()->loginUsingId($employer->employerID);
             Session::put('isLoggedin', true);
             Session::put([
                 'company' => $employer->company,
