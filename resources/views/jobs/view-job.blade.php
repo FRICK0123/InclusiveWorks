@@ -14,7 +14,7 @@
         crossorigin="anonymous"></script>
     <!--Bootstrap Links end-->
 
-    <link rel="stylesheet" href="css/jobstyle.css">
+    <link rel="stylesheet" href="{{asset('css/jobstyle.css')}}">
 </head>
 <body>
     <section class="container-fluid mt-5 mb-5">
@@ -46,12 +46,26 @@
                 <label class="mt-3 fw-bold">Capable Person with Disabilities</label>
                 <p>{{$disabilities}}</p>
 
-                <form action="#" method="post" class="d-flex justify-content-end align-items-baseline">
-                    <button class="btn btn-primary mt-3 p-2 w-50">Apply for this Job</button>
-                </form>
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-between">
+                        <form action="#" method="post" class="col-md-6">
+                            <button class="btn btn-dark mt-3 p-2 w-100 p-2 text-center" type="button" id="view-job-goback">Go Back</button>
+                        </form>
+
+                        <form action="#" method="post" class="col-md-6">
+                            <button class="btn btn-primary mt-3 p-2 w-100 p-2 text-center">Apply for this Job</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('view-job-goback').addEventListener('click',()=>{
+            window.history.back();
+        });
+    </script>
 
 </body>
 </html>

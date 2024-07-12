@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{{asset('css/main-style.css')}}">
     <link rel="stylesheet" href="{{asset('css/jobseeker-dashboard.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jobstyle.css')}}">
 
     <!--Bootstrap Links-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -250,7 +251,7 @@
                     <div class="d-flex">
                         <h4 class="text-dark ms-5">{{Session::get('pwd-username')}}</h4>
                         <form action="" method="POST">
-                            <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit" width="20"></button>
+                            <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit" width="20"></button>
                         </form>
                     </div>
 
@@ -260,7 +261,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <h5>{{Session::get('pwd-firstname')}} {{Session::get('pwd-lastname')}}</h5>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -270,7 +271,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <h5>{{Session::get('pwd-email')}}</h5>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -280,7 +281,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <h5>{{Session::get('pwd-contact')}}</h5>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -290,7 +291,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <h6>{{Session::get('pwd-address')}}</h6>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -300,7 +301,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <h5>{{Session::get('pwd-education')}}</h5>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -310,7 +311,7 @@
                         <div class="container-fluid d-flex justify-content-between align-items-center" id="profile-details">
                             <a href="{{asset('uploads/' . Session::get('pwd-resume'))}}" target="_blank">{{Session::get('pwd-resume')}}</a>
                             <form action="" method="POST">
-                                <button class="btn"><img src="images/icons/pencil-simple-line.svg" alt="Edit"></button>
+                                <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit"></button>
                             </form>
                         </div>
                     </div>
@@ -330,18 +331,42 @@
     </div>
     <!--Accessibility Tools Sidebar Contents End-->
     </header>
-
-
-    {{-- <h1>This is the Jobseekers Dashboard</h1>
-
-    <form action="{{route('job_listings')}}" method="post">
-        @csrf
-        <button type="submit">Find Jobs</button>
-    </form> --}}
     <form action="{{route('logout')}}" method="post">
         @csrf
         <button type="submit">Logout</button>
     </form>
+
+    <!--Job Listings-->
+    <section class="container-fluid mt-5 mb-5">
+        <div class="container">
+            <div class="row g-4">
+                @foreach ($jobListing as $index => $item)
+                    <div class="col-md-6">
+                        <div class="p-3 border border-1 border-dark rounded-3">
+                            <div class="container-fluid d-flex justify-content-between">
+                                <img src="{{asset('uploads/employers/' . $item['company-logo'])}}" alt="Company Logo" class="img-fluid" width="50">
+                                <label class="mt-3">Posted {{$item->created_at->diffForHumans()}}</label>
+                            </div>
+                            
+                            <span class="fw-bold">{{$item['company-name']}}</span>
+
+                            <h2 class="mt-3 fw-bold">{{$item['job-title']}}</h2>
+                            <label class="mt-3 fw-bold">Job Description:</label>
+                            <p class="truncate">{{$item['job-description']}}</p>
+
+                            <label class="mt-3 fw-bold">Salary Range:</label>
+                            <p>₱{{$item['salary-range-start']}} to ₱{{$item['salary-range-end']}} {{$item['salary-frequency']}}</p>
+
+                            <form action="{{route('view_job',$item['jobID'])}}" method="post" class="d-flex justify-content-end align-items-baseline">
+                                @csrf
+                                <button class="btn btn-primary mt-3 p-2 w-50" id="view-job-btn">View Job</button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
 
     <script src="{{asset('js/main-script.js')}}"></script>
     <script>

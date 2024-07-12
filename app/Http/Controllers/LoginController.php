@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jobposting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,11 @@ class LoginController extends Controller
                 'pwd-profile' => $jobseeker->{'pwd-profile'},
                 'pwd-disabilities' => $jobseeker->{'pwd-disabilities'},
             ]);
-            return redirect()->route('jobseeker_dashboard');
+            $disability = Session::get('pwd-disabilities');
+            return view('dashboards.jobseeker-dashboard', [
+                'jobListing' => Jobposting::whereRaw('FIND_IN_SET(?,disablities)', [$disability])->get()
+            ]);
+            //return redirect()->route('jobseeker_dashboard');
         } elseif ($employer && Hash::check($password, $employer->{'company-password'})) {
             // Authentication for employer successful
             auth()->loginUsingId($employer->employerID);
@@ -68,7 +73,7 @@ class LoginController extends Controller
             return redirect()->route('employer_dashboard');
         } else {
             // Authentication failed
-            return 'Not logged in';
+            return redirect()->back()->with('isNotLogged',"Your Credentials Doesn't Match");
         }
 
 

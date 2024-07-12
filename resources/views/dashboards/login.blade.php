@@ -204,7 +204,11 @@
             </div>
         </div>
     <!--Menu Sidebar Contents end-->
-
+    @if (session()->has('isNotLogged'))
+    <div class="alert alert-success container d-flex justify-content-center p-5" role="alert" id="loginAlert">
+        <h3>{{session('isNotLogged')}}</h3>
+    </div>
+    @endif
     <!--Login Form-->
         <section class="container-fluid mt-5">
             <div class="container d-flex flex-column justify-content-center" id="form-container">
@@ -231,7 +235,7 @@
     <script src="js/loginform.js"></script>
     
     <!--Script for Tool Switches appliying localStorage-->
-    <script>
+    {{-- <script>
         const highContrastCond = localStorage.getItem("highContrastCond");
         let highContrast = document.getElementById('high-contrast');
         if(highContrastCond == "true"){
@@ -241,6 +245,18 @@
             highContrast = false;
             document.getElementById('high-contrast-off-on').innerHTML = "Off";
         }
+    </script> --}}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            setTimeout(function() {
+                var alertElement = document.getElementById('loginAlert');
+                if (alertElement) {
+                    var alertInstance = new bootstrap.Alert(alertElement);
+                    alertInstance.close();
+                }
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
     </script>
 </body>
 

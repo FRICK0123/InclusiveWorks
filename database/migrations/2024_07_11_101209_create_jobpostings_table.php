@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('company-industry');
             $table->string('company-address');
             $table->string('job-title');
-            $table->string('job-description');
+            $table->text('job-description');
             $table->integer('salary-range-start');
             $table->integer('salary-range-end');
             $table->string('salary-frequency');
