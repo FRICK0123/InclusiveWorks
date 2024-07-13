@@ -185,8 +185,8 @@
 
         </div>
     </div>
-
     <!--Menu Sidebar Contents end-->
+    
     <form action="{{route('jobseekers_profile_page_validation')}}" method="POST" enctype="multipart/form-data" class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5">
         @csrf
             <label for="profile-pic" class="form-label">

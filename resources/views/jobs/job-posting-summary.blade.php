@@ -23,7 +23,7 @@
 
             <form action="{{route('job_posting_summary_insertion')}}" method="post">
                 @csrf
-                <img src="{{asset('uploads/employers/' . $jobData['company-logo'])}}" alt="Company Logo" class="img-fluid" width="100">
+                <img src="{{asset('uploads/employers/' . $jobData['company-logo'])}}" alt="Company Logo" class="img-fluid" width="100" style="border-radius: 50%">
                 <input type="hidden" name="company-logo" value="{{$jobData['company-logo']}}">
                 <br><br>
                 <label class="fw-bold">Company Name:</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jobseeker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
@@ -170,5 +171,42 @@ class JobseekersController extends Controller
 
         Session::flush();
         return redirect()->route('homepage')->with('Registered', "You are Registered Successfully");
+    }
+
+    //Profile Image Update
+    public function updateProfileImage(Request $request){
+        // Validate the uploaded file
+        $profile = $request->validate(
+            [
+                'update-profile' => ['required', 'file', 'mimes:png,jpeg,jpg']
+            ],
+            [
+                'update-profile.required' => 'Profile Picture Required',
+                'update-profile.file' => 'Please upload a valid file',
+                'update-profile.mimes' => 'Only PNG, JPG, JPEG files are allowed',
+            ]
+        );
+
+        // Check if there is an existing profile picture and delete it
+        if (Session::has('pwd-profile')) {
+            $existingFile = Session::get('pwd-profile');
+            $existingFilePath = public_path('uploads') . '/' . $existingFile;
+
+            if (file_exists($existingFilePath)) {
+                unlink($existingFilePath); // Delete the existing file
+            }
+        }
+
+        // Upload the new profile picture
+        if ($request->hasFile('update-profile')) {
+            $file = $request->file('update-profile');
+            $fileName = time() . '.' . $file->getClientOriginalExtension(); // Ensure unique file name
+            $file->move(public_path('uploads'), $fileName);
+            DB::table('jobseekers')->where('pwdID',Session::get('pwdID'))->update(['pwd-profile'=>$fileName]);
+            // Store the new file name in the session
+            Session::put('pwd-profile', $fileName);
+        }
+
+        return redirect()->route('jobseeker_dashboard');
     }
 }

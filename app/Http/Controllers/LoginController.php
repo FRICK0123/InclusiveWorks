@@ -51,10 +51,12 @@ class LoginController extends Controller
                 'pwd-disabilities' => $jobseeker->{'pwd-disabilities'},
             ]);
             $disability = Session::get('pwd-disabilities');
-            return view('dashboards.jobseeker-dashboard', [
-                'jobListing' => Jobposting::whereRaw('FIND_IN_SET(?,disablities)', [$disability])->get()
-            ]);
-            //return redirect()->route('jobseeker_dashboard');
+
+            // Save the job listings to the session
+            Session::put(['jobListings' => Jobposting::whereRaw('FIND_IN_SET(?,disablities)', [$disability])->orderBy('created_at','DESC')->get()]);
+
+            // Redirect to the route
+            return redirect()->route('jobseeker_dashboard');
         } elseif ($employer && Hash::check($password, $employer->{'company-password'})) {
             // Authentication for employer successful
             auth()->loginUsingId($employer->employerID);
@@ -75,6 +77,16 @@ class LoginController extends Controller
             // Authentication failed
             return redirect()->back()->with('isNotLogged',"Your Credentials Doesn't Match");
         }
+       
+    }
+
+    //Logout Controller
+    public function logout()
+    {
+        Session::flush();
+        return redirect()->route('homepage');
+    }
+}
 
 
         // if(($users && Hash::check($password,$users->{'pwd-password'})) && ($users->usertype == 'jobseeker')){
@@ -110,13 +122,4 @@ class LoginController extends Controller
         //     return redirect()->route('employer_dashboard');
         // } else {
         //     echo "You are not logged in";   
-        // }        
-    }
-
-    //Logout Controller
-    public function logout()
-    {
-        Session::flush();
-        return redirect()->route('homepage');
-    }
-}
+        // } 

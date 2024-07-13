@@ -244,17 +244,20 @@
         </div>
         <div class="offcanvas-body">
                 <!--Profile Details-->
-                <div class="container-fluid d-flex flex-column align-items-center">
-                    <div class="profile-img-sidebar-wrapper">
-                        <img src="{{asset('uploads/' . Session::get('pwd-profile'))}}" alt="Profile Image" class="profile-img-sidebar">
-                    </div>
-                    <div class="d-flex">
+                <!--Profile Image-->
+                    <div class="container-fluid d-flex flex-column align-items-center">
+                        <div class="profile-img-sidebar-wrapper">
+                            <img src="{{asset('uploads/' . Session::get('pwd-profile'))}}" alt="Profile Image" class="profile-img-sidebar">
+                        </div>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#edit-profile-image-modal">Edit Profile Image</a>
+                <!--Profile Image End-->
+
+                    <div class="d-flex mt-3">
                         <h4 class="text-dark ms-5">{{Session::get('pwd-username')}}</h4>
                         <form action="" method="POST">
                             <button class="btn"><img src="{{asset('images/icons/pencil-simple-line.svg')}}" alt="Edit" width="20"></button>
                         </form>
                     </div>
-
 
                     <div class="container-fluid mt-3">
                         <label>Full Name:</label>
@@ -316,17 +319,6 @@
                         </div>
                     </div>
                 </div>
-            {{-- <ul class="profile-sidebar">
-                <!--Pointer-->
-                <li class="container-fluid d-flex justify-content-between align-items-center" aria-label="Pointer" id="pointer-list"> 
-                    <h4 class="">Pointer</h4>
-                    <label class="pointer-switch text-center">
-                        <input type="checkbox" id="pointer">
-                        <span class="slider round"></span>
-                        <p id="pointer-off-on" class="mt-2">Off</p>
-                    </label>
-                </li>
-            </ul> --}}
         </div>
     </div>
     <!--Accessibility Tools Sidebar Contents End-->
@@ -336,15 +328,62 @@
         <button type="submit">Logout</button>
     </form>
 
+<!--Profile Image Edit Modal-->
+    <div class="modal fade" id="edit-profile-image-modal" tabindex="-1" aria-labelledby="Edit Profile Image" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Edit Profile Image</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('profile-image-update')}}" method="POST" enctype="multipart/form-data" class="container-fluid d-flex flex-column justify-content-center align-items-center mt-5">
+                        @csrf
+                            <label for="profile-pic" class="form-label">
+                                <div class="edit-profile-img-wrapper">
+                                    <img src="{{asset('uploads/' . Session::get('pwd-profile'))}}" alt="Profile Image" class="edit-profile-img" id="edit-profile-img">
+                                </div>
+                            </label>
+
+                            <div class="mt-3 container">
+                                <input class="form-control" type="file" id="profile-pic" accept=".jpg,.jpeg,.png" name="update-profile">
+                                @error('update-profile')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mt-3 container-fluid d-flex justify-content-between row">
+                                <div class="col-md-6 mt-3 text-center">
+                                    <button type="button" class="btn btn-danger w-100 text-center" data-bs-dismiss="modal">Close</button>
+                                </div>
+
+                                <div class="col-md-6 mt-3 text-center">
+                                    <button type="submit" class="btn btn-primary w-100 text-center">Save changes</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--Profile Image Edit Modal End-->
+
     <!--Job Listings-->
     <section class="container-fluid mt-5 mb-5">
+        <div class="container">
+            <form action="{{route('jobseeker_dashboard_search')}}" method="POST" class="input-group mb-3 shadow">
+                @csrf
+                <input type="text" class="form-control p-3 rounded-3 bg-light" placeholder="Search Jobs" name="jobSearch">
+                <button class="input-group-text btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
         <div class="container">
             <div class="row g-4">
                 @foreach ($jobListing as $index => $item)
                     <div class="col-md-6">
-                        <div class="p-3 border border-1 border-dark rounded-3">
+                        <div class="p-3 border border-1 border-dark rounded-3 bg-light shadow">
                             <div class="container-fluid d-flex justify-content-between">
-                                <img src="{{asset('uploads/employers/' . $item['company-logo'])}}" alt="Company Logo" class="img-fluid" width="50">
+                                <img src="{{asset('uploads/employers/' . $item['company-logo'])}}" alt="Company Logo" class="img-fluid" width="50" style="border-radius: 50%">
                                 <label class="mt-3">Posted {{$item->created_at->diffForHumans()}}</label>
                             </div>
                             
@@ -369,11 +408,6 @@
     </section>
 
     <script src="{{asset('js/main-script.js')}}"></script>
-    <script>
-        var loader = document.getElementById('preloader');
-        window.addEventListener("load",function(){
-            loader.style.display = "none";
-        });
-    </script>
+    <script src="{{asset('js/dashboards.js')}}"></script>
 </body>
 </html>

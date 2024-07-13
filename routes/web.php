@@ -90,6 +90,8 @@ Route::post('/login/Authentication', [LoginController::class, 'loginAuthenticati
 //Route for Dashboards
 //Jobseekers Dashboard
 Route::get('/jobseeker_dashboard', [DashboardController::class, 'jobseekerDashboard'])->name('jobseeker_dashboard');
+//Jobseekers Dashboard Search
+Route::post('/jobseeker_dashboard/search',[DashboardController::class, 'jobseekerDashboardSearch'])->name('jobseeker_dashboard_search');
 
 //Employers Dashboard
 Route::get('/employer_dashboard', [DashboardController::class, 'employerDashboard'])->name('employer_dashboard');
@@ -112,3 +114,6 @@ Route::post('/view_job/{jobID}', [JobController::class, 'jobView'])->name('view_
 
 //Logout Route
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//Jobseekers Dashboard Profile Details and Updates
+    Route::post('/update_image',[JobseekersController::class,'updateProfileImage'])->name('profile-image-update');
