@@ -32,9 +32,6 @@
             <label class="text-white" style="cursor: pointer;">Close</label>
         </div>
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            {{-- <label for="overlay-pwd-address" class="form-label text-white fw-bold align-self-start">First Name</label>
-            <input type="text" class="form-control p-3" placeholder="Juan" id="overlay-pwd-address"> --}}
-
             <!--Region-->
             <label class="form-label text-white fw-bold align-self-start mt-3">Region *</label>
             <select name="region" class="form-control form-control-md" id="region"></select>

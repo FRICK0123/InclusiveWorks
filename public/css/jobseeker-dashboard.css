@@ -88,3 +88,21 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+/*Pwd Address Edit Modal*/
+.pwd-address-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#pwd-address-close {
+    position: absolute;
+    top: -7%;
+    left: -10%;
+    margin: 10%;
+    cursor: pointer;
+    width: 5%;
+}

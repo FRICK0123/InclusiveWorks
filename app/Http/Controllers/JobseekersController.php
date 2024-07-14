@@ -209,4 +209,68 @@ class JobseekersController extends Controller
 
         return redirect()->route('jobseeker_dashboard');
     }
+
+    //Jobseeker update username
+    public function updateUsername(Request $request){
+        $validate_username = $request->validate([
+            'edit-username' => ['required']
+        ],
+        [
+            'edit-username.required' => "Username Field is Empty"
+        ]
+    );
+        $new_username = $validate_username['edit-username'];
+        DB::table('jobseekers')->where('pwdID',Session::get('pwdID'))->update(['pwd-username'=>$new_username]);
+        Session::put('pwd-username',$new_username);
+        
+        return redirect()->route('jobseeker_dashboard');
+    }
+
+    //Jobseeker update fullname
+    public function updateFullname(Request $request)
+    {
+        $new_firstname = $request->input('edit-firstname');
+        $new_lastname = $request->input('edit-lastname');
+
+        DB::table('jobseekers')->where('pwdID', Session::get('pwdID'))->update(['pwd-firstname' => $new_firstname, 'pwd-lastname' => $new_lastname]);
+        Session::put([
+            'pwd-firstname' => $new_firstname,
+            'pwd-lastname' => $new_lastname
+        ]);
+
+        return redirect()->route('jobseeker_dashboard');
+    }
+
+    //Jobseeker update email
+    public function updateEmail(Request $request)
+    {
+        $new_email = $request->input('edit-email');
+
+        DB::table('jobseekers')->where('pwdID', Session::get('pwdID'))->update(['pwd-email'=>$new_email]);
+        Session::put('pwd-email',$new_email);
+
+        return redirect()->route('jobseeker_dashboard');
+    }
+
+    //Jobseeker update contact number
+    public function updateContact(Request $request)
+    {
+        $new_contact = $request->input('edit-contact');
+
+        DB::table('jobseekers')->where('pwdID', Session::get('pwdID'))->update(['pwd-contact' => $new_contact]);
+        Session::put('pwd-contact', $new_contact);
+
+        return redirect()->route('jobseeker_dashboard');
+    }
+
+    //Jobseeker update Address
+    public function updateAddress(Request $request)
+    {
+        $new_address = $request->input('edit-address');
+
+        DB::table('jobseekers')->where('pwdID', Session::get('pwdID'))->update(['pwd-address' => $new_address]);
+        Session::put('pwd-address', $new_address);
+
+        return redirect()->route('jobseeker_dashboard');
+    }
 }
