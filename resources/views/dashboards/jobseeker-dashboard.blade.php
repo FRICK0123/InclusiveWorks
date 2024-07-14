@@ -40,15 +40,15 @@
             <!--Links-->
             <ul class="links d-none d-lg-flex">
                 <li class="nav-item text-center">
-                    <a href="#" class="nav-link">
-                        <img src="{{asset('images/icons/house.svg')}}" alt="Home Icon" width="40">
+                    <a href="{{route('jobseeker_dashboard')}}" class="nav-link">
+                        <img src="{{asset('images/icons/gauge.svg')}}" alt="Home Icon" width="40">
                         <p class="link-label">Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item text-center">
                     <a href="#" class="nav-link">
-                        <img src="{{asset('images/icons/user-gear.svg')}}" alt="Home Icon" width="40">
+                        <img src="{{asset('images/icons/gear.svg')}}" alt="Home Icon" width="40">
                         <p class="link-label">Pending Jobs</p>
                     </a>
                 </li>
@@ -165,24 +165,29 @@
                 <ul class="tools-lists">
                 <!--Links-->
                     <!--Home-->
-                    <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
-                        <h4 class="">Home</h4>
+                    <a href="{{route('jobseeker_dashboard')}}" class="container-fluid d-flex justify-content-between align-items-center">
+                        <h4 class="">Dashboard</h4>
+                        <img src="{{asset('images/icons/gauge-black.svg')}}" alt="Dashboard Icon" class="img-fluid">
                     </a>
                     <!--How it Works?-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">Pending Jobs</h4>
+                        <img src="{{asset('images/icons/gear-black.svg')}}" alt="Pending Jobs Icon" class="img-fluid">
                     </a>
                     <!--Tools Description-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">Messages</h4>
+                        <img src="{{asset('images/icons/chats-circle-black.svg')}}" alt="Messages Icon" class="img-fluid">
                     </a>
                     <!--About Us-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">About Us</h4>
+                        <img src="{{asset('images/icons/question_black.svg')}}" alt="About Icon" class="img-fluid">
                     </a>
                     <!--Contact Us-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">Contact Us</h4>
+                        <img src="{{asset('images/icons/phone_black.svg')}}" alt="Contact Icon" class="img-fluid">
                     </a>
                 <!--Tools-->
                     <!--Menu Pointer-->

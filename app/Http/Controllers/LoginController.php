@@ -72,7 +72,13 @@ class LoginController extends Controller
                 'company-username' => $employer->{'company-username'},
             ]);
 
-            return redirect()->route('employer_dashboard');
+            $isVerified = $employer->verify;
+            if($isVerified == "verified"){
+                return redirect()->route('employer_dashboard');
+            } else {
+                Session::flush();
+                return redirect()->route('employer_pending_page');
+            }
         } else {
             // Authentication failed
             return redirect()->back()->with('isNotLogged',"Your Credentials Doesn't Match");

@@ -21,7 +21,7 @@
         <div class="container">
             <div class="p-3 border border-1 border-dark">
                 <div class="container-fluid d-flex justify-content-between">
-                    <img src="{{asset('uploads/employers/' . $company_logo)}}" alt="Company Logo" class="img-fluid" width="50">
+                    <img src="{{asset('uploads/employers/' . $company_logo)}}" alt="Company Logo" class="img-fluid" width="50" style="border-radius: 50%;">
                     <label class="mt-3">Posted {{$created_at->diffForHumans()}}</label>
                 </div>
                             
