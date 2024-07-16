@@ -37,12 +37,12 @@
         <!--Profile Section End-->
 
         <!--NavList-->
-            <form action="{{route('employer_dashboard')}}" method="GET" class="dashboard_link mt-5 p-2 rounded-5" id="dashboard" style="background-color: #007BFF" onclick="dashboard()">
+            <form action="{{route('employer_dashboard')}}" method="GET" class="dashboard_link mt-5 p-2 rounded-5" id="dashboard"  onclick="dashboard()">
                 <img src="{{asset('images/icons/gauge.svg')}}">
                 <h6 class="text-light d-none d-lg-block ms-2">Dashboard</h6>
             </form>
 
-            <form action="{{route('employer.job_postings')}}" method="GET" class="dashboard_link mt-2 p-2 rounded-5" id="job_postings" onclick="job_posting()">
+            <form action="{{route('employer.job_postings')}}" method="GET" class="dashboard_link mt-2 p-2 rounded-5" id="job_postings" onclick="job_posting()" style="background-color: #007BFF">
                 <img src="{{asset('images/icons/note-pencil-white.svg')}}">
                 <h6 class="text-light d-none d-lg-block ms-2">Job Postings</h6>
             </form>
@@ -84,8 +84,21 @@
         <div class="container col-2"></div>
 
         <div class="container col-10">
-            <h1>Hello, this is the Dashboard</h1>
-        </div>
+            <h1>Job postings</h1>
+            <table class="table table-hover">
+                @foreach ($job_postings as $item)
+                    <tr style="cursor: pointer" onclick="view_job('view_job_{{$item['jobID']}}')">
+                        <td>
+                            <form action="{{route('employer.view_job',$item['jobID'])}}" method="POST" class="d-flex justify-content-between" id="view_job_{{$item['jobID']}}">
+                                @csrf
+                                <p class="fw-bold">{{$item['job-title']}}</p>
+                                <label class="mt-3" id="posted_label">Posted {{$item['created_at']->diffForHumans()}}</label>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            </div>
     </section>
 
     {{-- <form action="{{route('job_posting')}}" method="get">

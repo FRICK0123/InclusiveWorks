@@ -64,8 +64,16 @@
     cursor: pointer;
 }
 
+.dashboard_link:hover{
+    background-color: #007BFF;
+}
+
 @media (max-width:900px){
     .dashboard_link{
         justify-content: center;
     }
+}
+
+#posted_label{
+    font-size: clamp(8px,1.2vw,15px);
 }

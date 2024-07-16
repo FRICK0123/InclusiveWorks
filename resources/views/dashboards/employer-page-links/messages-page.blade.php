@@ -37,7 +37,7 @@
         <!--Profile Section End-->
 
         <!--NavList-->
-            <form action="{{route('employer_dashboard')}}" method="GET" class="dashboard_link mt-5 p-2 rounded-5" id="dashboard" style="background-color: #007BFF" onclick="dashboard()">
+            <form action="{{route('employer_dashboard')}}" method="GET" class="dashboard_link mt-5 p-2 rounded-5" id="dashboard"  onclick="dashboard()">
                 <img src="{{asset('images/icons/gauge.svg')}}">
                 <h6 class="text-light d-none d-lg-block ms-2">Dashboard</h6>
             </form>
@@ -52,7 +52,7 @@
                 <h6 class="text-light d-none d-lg-block ms-2">Applicants</h6>
             </form>
 
-            <form action="{{route('employer.messages')}}" method="GET" class="dashboard_link mt-2 p-2 rounded-5" id="messages" onclick="messages()">
+            <form action="{{route('employer.messages')}}" method="GET" class="dashboard_link mt-2 p-2 rounded-5" id="messages" onclick="messages()" style="background-color: #007BFF">
                 <img src="{{asset('images/icons/chats-circle.svg')}}">
                 <h6 class="text-light d-none d-lg-block ms-2">Messages</h6>
             </form>
@@ -84,7 +84,7 @@
         <div class="container col-2"></div>
 
         <div class="container col-10">
-            <h1>Hello, this is the Dashboard</h1>
+            <h1>Messages page under construction</h1>
         </div>
     </section>
 

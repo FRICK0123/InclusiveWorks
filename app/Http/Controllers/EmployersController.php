@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employer;
+use App\Models\Jobposting;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -163,5 +164,33 @@ class EmployersController extends Controller
     public function employerPending()
     {
         return view('platform-users.employers.employer-pending');
+    }
+
+    //Job postings page
+    public function job_postings(){
+        return view('dashboards.employer-page-links.job-postings',[
+            'job_postings' => Jobposting::where('company-name',Session::get('company'))->get(),
+        ]);
+    }
+
+    //View Jobs in Job postings page
+    public function view_job($jobID){
+        $job = Jobposting::where('jobID',$jobID)->first();
+        return view('dashboards.employer-page-links.view-job', [
+            'jobID' => $job['jobID'],
+            'company_logo' => $job['company-logo'],
+            'company_name' => $job['company-name'],
+            'job_title' => $job['job-title'],
+            'job_description' => $job['job-description'],
+            'salary_start' => $job['salary-range-start'],
+            'salary_end' => $job['salary-range-end'],
+            'salary_frequency' => $job['salary-frequency'],
+            'employment_type' => $job['employment-type'],
+            'education_level' => $job['education-level'],
+            'experience_level' => $job['experience-level'],
+            'skills' => $job['skills'],
+            'disabilities' => $job['disablities'],
+            'created_at' => $job['created_at'],
+        ]);
     }
 }

@@ -93,8 +93,22 @@ Route::post('/login/Authentication', [LoginController::class, 'loginAuthenticati
     //Jobseekers Dashboard Search
     Route::post('/jobseeker_dashboard/search',[DashboardController::class, 'jobseekerDashboardSearch'])->name('jobseeker_dashboard_search');
 
-    //Employers Dashboard
-    Route::get('/employer_dashboard', [DashboardController::class, 'employerDashboard'])->name('employer_dashboard');
+    //Employers Dashboard Routes
+        //Employer Main Page
+        Route::get('/employer_dashboard', [DashboardController::class, 'employerDashboard'])->name('employer_dashboard');
+        //Employers Job Posting Page
+        Route::get('/employer_job_postings',[EmployersController::class,'job_postings'])->name('employer.job_postings');
+        //Employers Applicants Page
+        Route::get('/employer_applicants',function(){return view('dashboards.employer-page-links.applicants-page');})->name('employer.applicants');
+        //Employers Applicants Page
+        Route::get('/employer_messages',function(){return view('dashboards.employer-page-links.messages-page');})->name('employer.messages');
+        //Employers About Page
+        Route::get('/employer_about',function(){return view('dashboards.employer-page-links.about-page');})->name('employer.about');
+        //Employers Contact Page
+        Route::get('/employer_contact',function(){return view('dashboards.employer-page-links.contact-page');})->name('employer.contact');
+
+        //View Jobpostings
+        Route::post('/job_description/{jobID}',[EmployersController::class,'view_job'])->name('employer.view_job');
 //Route for Dashboards end
 
 //Jobs Features and Functionalities Routes
@@ -129,4 +143,5 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/update_contact', [JobseekersController::class, 'updateContact'])->name('contact-update');
     //Address
     Route::post('/update_address', [JobseekersController::class, 'updateAddress'])->name('address-update');
+//Jobseekers Dashboard Profile Details and Updates end
 
