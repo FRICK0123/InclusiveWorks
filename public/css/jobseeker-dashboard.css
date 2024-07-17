@@ -106,3 +106,13 @@
     cursor: pointer;
     width: 5%;
 }
+
+#posted_label {
+    font-size: clamp(8px, 1.2vw, 15px);
+}
+
+#pending_lists:hover{
+    background-color: #FFC107;
+    transition: .3s;
+    cursor: pointer;
+}

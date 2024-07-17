@@ -40,23 +40,21 @@
             <!--Links-->
             <ul class="links d-none d-lg-flex">
                 <li class="nav-item text-center">
-                    <a href="{{route('jobseeker_dashboard')}}" class="nav-link" style="background-color: rgb(84, 84, 84)">
+                    <a href="{{route('jobseeker_dashboard')}}" class="nav-link">
                         <img src="{{asset('images/icons/gauge.svg')}}" alt="Home Icon" width="40">
                         <p class="link-label">Dashboard</p>
                     </a>
                 </li>
 
-                <li class="nav-item text-center" onclick="pendingJob()">
+                <li class="nav-item text-center" onclick="pendingJob()" style="background-color: rgb(84, 84, 84)">
                     <a href="#" class="nav-link">
-                        <form action="{{route('pending_jobs',Session::get('pwdID'))}}" method="POST" id="pendingForm">
-                            @csrf
+                        <form action="#" method="POST">
                             <img src="{{asset('images/icons/gear.svg')}}" alt="Home Icon" width="40">
                             <p class="link-label">Pending Jobs</p>
                         </form>
-
                     </a>
                 </li>
-
+                
                 <li class="nav-item text-center">
                     <a href="#" class="nav-link">
                         <img src="{{asset('images/icons/chats-circle.svg')}}" alt="Home Icon" width="40">
@@ -574,46 +572,26 @@
 
     <!--Job Listings-->
     <section class="container-fluid mt-5 mb-5">
+        <h1>Pending Jobs</h1>
         @if (session()->has('posted'))
         <div class="alert alert-success container d-flex justify-content-center p-5" role="alert" id="pwdAlert">
             <h3>{{session('posted')}}</h3>
         </div>
         @endif
-        <div class="container">
-            <form action="{{route('jobseeker_dashboard_search')}}" method="POST" class="input-group mb-3 shadow" id="job_search">
-                @csrf
-                <input type="text" class="form-control p-3 rounded-3 bg-light" placeholder="Search Jobs" name="jobSearch">
-                <button class="input-group-text btn btn-primary" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="container" id="searchResults">
-            <div class="row g-4">
-                @foreach ($jobListing as $index => $item)
-                    <div class="col-md-6">
-                        <div class="p-3 border border-1 border-dark rounded-3 bg-light shadow">
-                            <div class="container-fluid d-flex justify-content-between">
-                                <img src="{{asset('uploads/employers/' . $item['company-logo'])}}" alt="Company Logo" class="img-fluid" width="50" style="border-radius: 50%">
-                                <label class="mt-3">Posted {{$item->created_at->diffForHumans()}}</label>
-                            </div>
-                            
-                            <span class="fw-bold">{{$item['company-name']}}</span>
 
-                            <h2 class="mt-3 fw-bold">{{$item['job-title']}}</h2>
-                            <label class="mt-3 fw-bold">Job Description:</label>
-                            <p class="truncate">{{$item['job-description']}}</p>
-
-                            <label class="mt-3 fw-bold">Salary Range:</label>
-                            <p>₱{{$item['salary-range-start']}} to ₱{{$item['salary-range-end']}} {{$item['salary-frequency']}}</p>
-
-                            <form action="{{route('view_job',$item['jobID'])}}" method="post" class="d-flex justify-content-end align-items-baseline">
-                                @csrf
-                                <button class="btn btn-primary mt-3 p-2 w-50" id="view-job-btn">View Job</button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+        <table class="table">
+            @foreach ($pendingJobs as $item)
+                <tr>
+                    <td id="pending_lists">
+                        <form action="#" method="POST" class="d-flex justify-content-between">
+                            @csrf
+                            <p class="fw-bold">{{ $item->{'job-title'} }}</p>
+                            <label class="mt-3" id="posted_label">Applied {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</label>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </section>
 
     <script src="{{asset('js/main-script.js')}}"></script>

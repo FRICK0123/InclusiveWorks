@@ -93,6 +93,8 @@ Route::post('/login/Authentication', [LoginController::class, 'loginAuthenticati
     //Jobseekers Dashboard Search
     Route::post('/jobseeker_dashboard/search',[DashboardController::class, 'jobseekerDashboardSearch'])->name('jobseeker_dashboard_search');
 
+    Route::post('pending_jobs/{pwdID}',[JobseekersController::class, 'pendingJobs'])->name('pending_jobs');
+
     //Employers Dashboard Routes
         //Employer Main Page
         Route::get('/employer_dashboard', [DashboardController::class, 'employerDashboard'])->name('employer_dashboard');

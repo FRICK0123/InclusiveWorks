@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jobseeker;
+use App\Models\Pendingjob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -272,5 +273,18 @@ class JobseekersController extends Controller
         Session::put('pwd-address', $new_address);
 
         return redirect()->route('jobseeker_dashboard');
+    }
+
+    //Pending Jobs Page
+    public function pendingJobs($pwdID){
+        $pending_jobs = DB::table('pendingjobs')
+        ->join('jobpostings', 'pendingjobs.jobID', '=', 'jobpostings.jobID')
+        ->where('pendingjobs.pwdID', $pwdID)
+        ->select('pendingjobs.*', 'jobpostings.*')
+        ->get();
+
+        return view('jobs.pending-jobs',[
+            'pendingJobs' => $pending_jobs,
+        ]);
     }
 }
