@@ -109,15 +109,20 @@ Route::post('/login/Authentication', [LoginController::class, 'loginAuthenticati
 
         //View Jobpostings
         Route::post('/job_description/{jobID}',[EmployersController::class,'view_job'])->name('employer.view_job');
+
+        //Delete Job Posting
+        Route::delete('/job_delete/{jobID}',[EmployersController::class,'deleteJob'])->name('employer.job_delete');
+    //Employers Dashboard Routes End
 //Route for Dashboards end
 
-//Jobs Features and Functionalities Routes
+//Jobs Features and Functionalities Routes (for employers)
     //Route from employer dashboard to job posting page
     Route::get('/job_posting', [JobController::class, 'jobPosting'])->name('job_posting');
     //Job Posting Validation
     Route::post('/job_posting/data', [JobController::class, 'jobPostingData'])->name('post_job');
     //Job posting summary data insertion
     Route::post('/job_posting/summary/job_posted', [JobController::class, 'jobPostingSummaryPosted'])->name('job_posting_summary_insertion');
+//Jobs Features and Functionalities Routes (for employers) end
 
 
 //Find Job Route
@@ -125,7 +130,12 @@ Route::post('/job_listings', [JobController::class, 'findJob'])->name('job_listi
 
 //View Job Route
 Route::post('/view_job/{jobID}', [JobController::class, 'jobView'])->name('view_job');
-//Jobs Features and Functionalities Routes End
+
+//Jobseekers job application view
+Route::get('/job_application/{jobID}',[JobController::class,'jobApplication'])->name('job_application_page');
+
+//Jobseekers job application submittion
+Route::POST('/job_application/submit',[JobController::class, 'jobApplicationSubmit'])->name('job_application_submit');
 
 //Logout Route
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

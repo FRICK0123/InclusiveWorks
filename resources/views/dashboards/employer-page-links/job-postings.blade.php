@@ -85,6 +85,9 @@
 
         <div class="container col-10">
             <h1>Job postings</h1>
+    <form action="{{route('job_posting')}}" method="get">
+        <button type="submit">Post a Job</button>
+    </form>
             <table class="table table-hover">
                 @foreach ($job_postings as $item)
                     <tr style="cursor: pointer" onclick="view_job('view_job_{{$item['jobID']}}')">
@@ -100,10 +103,6 @@
             </table>
             </div>
     </section>
-
-    {{-- <form action="{{route('job_posting')}}" method="get">
-        <button type="submit">Post a Job</button>
-    </form> --}}
 
     <script src="{{asset('js/employer-dashboard.js')}}"></script>
 </body>

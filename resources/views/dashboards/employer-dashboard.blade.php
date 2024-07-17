@@ -22,7 +22,7 @@
     <div class="preloader" id="preloader">
         <div class="loader"></div>
     </div>
-    <div class="container bg-dark col-2 gx-0 p-2" id="dashboard-sidebar">
+    <div class="container bg-dark col-2 p-2" id="dashboard-sidebar">
         <!--Profile Section-->
             <div class="d-flex align-items-center justify-content-center border border-top-0 border-start-0 border-end-0 border-light">
                 <form action="#" id="view_profile_link" method="POST">
@@ -32,7 +32,7 @@
                     </button>
                 </form>
 
-                <h5 class="text-light d-none d-md-block mt-4" id="company_name">{{Session::get('company')}}</h5>
+                <h5 class="text-light d-none d-md-block mt-4 me-3" id="company_name">{{Session::get('company')}}</h5>
             </div>
         <!--Profile Section End-->
 

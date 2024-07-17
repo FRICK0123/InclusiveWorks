@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jobposting;
+use App\Models\Pendingjob;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,7 @@ class JobController extends Controller
             'disablities' => $request->input('disabilities'),
         ]);
 
-        return redirect()->route('employer_dashboard')->with('jobposted', "Job Request Posted Successfully");
+        return redirect()->route('employer.job_postings')->with('jobposted', "Job Request Posted Successfully");
     }
 
     //Jobseekers find jobs
@@ -94,5 +95,41 @@ class JobController extends Controller
             'disabilities' => $job['disablities'],
             'created_at' => $job['created_at'],
         ]);
+    }
+
+    //Jobseekers Job application view
+    public function jobApplication($jobID){
+        $job = Jobposting::where('jobID', $jobID)->first();
+        return view('jobs.apply-job', [
+            'jobID' => $job['jobID'],
+            'company_logo' => $job['company-logo'],
+            'company_name' => $job['company-name'],
+            'job_title' => $job['job-title'],
+            'job_description' => $job['job-description'],
+            'salary_start' => $job['salary-range-start'],
+            'salary_end' => $job['salary-range-end'],
+            'salary_frequency' => $job['salary-frequency'],
+            'employment_type' => $job['employment-type'],
+            'education_level' => $job['education-level'],
+            'experience_level' => $job['experience-level'],
+            'skills' => $job['skills'],
+            'disabilities' => $job['disablities'],
+            'created_at' => $job['created_at'],
+        ]);
+    }
+
+    //Jobseekers Pending Job Submittion
+    public function jobApplicationSubmit(Request $request){
+        $cover_letter = $request->input('cover_letter');
+        $resume = $request->input('pwd_resume');
+        $jobID = $request->input('jobID');
+
+        Pendingjob::create([
+            'jobID' => $jobID,
+            'cover_letter' => $cover_letter,
+            'pwd_resume' => $resume,
+        ]);
+
+        return to_route('jobseeker_dashboard')->with('posted',"Applied Successfully, please wait for the employer's response");
     }
 }

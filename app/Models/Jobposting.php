@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Jobposting extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'jobID';
+    protected $keyType = 'string';
     protected $fillable = [
         'jobID',
         'company-logo',

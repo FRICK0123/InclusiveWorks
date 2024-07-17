@@ -193,4 +193,11 @@ class EmployersController extends Controller
             'created_at' => $job['created_at'],
         ]);
     }
+
+    //Delete Job Postings
+    public function deleteJob($jobID){
+        $job = Jobposting::where('jobID', $jobID)->first();
+        $job->delete();
+        return redirect()->route('employer.job_postings');
+    }
 }

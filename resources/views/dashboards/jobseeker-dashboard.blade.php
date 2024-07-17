@@ -570,6 +570,11 @@
 
     <!--Job Listings-->
     <section class="container-fluid mt-5 mb-5">
+        @if (session()->has('posted'))
+        <div class="alert alert-success container d-flex justify-content-center p-5" role="alert" id="pwdAlert">
+            <h3>{{session('posted')}}</h3>
+        </div>
+        @endif
         <div class="container">
             <form action="{{route('jobseeker_dashboard_search')}}" method="POST" class="input-group mb-3 shadow" id="job_search">
                 @csrf
@@ -611,5 +616,17 @@
     <script src="{{asset('js/dashboards.js')}}"></script>
     <!--Philippine Address Selectors-->
     <script src="{{asset('js/ph-address-selector.js')}}"></script>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+            setTimeout(function() {
+                var alertElement = document.getElementById('pwdAlert');
+                if (alertElement) {
+                    var alertInstance = new bootstrap.Alert(alertElement);
+                    alertInstance.close();
+                }
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    </script>
 </body>
 </html>

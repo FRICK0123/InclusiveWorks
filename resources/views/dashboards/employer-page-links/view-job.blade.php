@@ -19,7 +19,6 @@
 <body>
     <section class="container-fluid mt-5 mb-5">
         <div class="container">
-            <a href="#" id="view-job-goback">Go Back</a>
             <div class="p-3 border border-1 border-dark">
                 <div class="container-fluid d-flex justify-content-between">
                     <img src="{{asset('uploads/employers/' . $company_logo)}}" alt="Company Logo" class="img-fluid" width="50" style="border-radius: 50%;">
@@ -53,10 +52,12 @@
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-between">
                         <form action="#" method="post" class="col-md-6">
-                            <button class="btn btn-primary mt-3 p-2 w-100 p-2 text-center" type="button">Edit</button>
+                            <button class="btn btn-primary mt-3 p-2 w-100 p-2 text-center" type="button" id="view-job-goback">Go Back</button>
                         </form>
-
-                        <form action="#" method="post" class="col-md-6">
+                        
+                        <form action="{{route('employer.job_delete',$jobID)}}" method="POST" class="col-md-6">
+                            @csrf
+                            @method('delete')
                             <button class="btn btn-danger mt-3 p-2 w-100 p-2 text-center">Delete</button>
                         </form>
                     </div>

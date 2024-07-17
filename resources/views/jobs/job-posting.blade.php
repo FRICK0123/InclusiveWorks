@@ -24,7 +24,7 @@
             <form action="{{route('post_job')}}" method="post">
                 @csrf
                 <label for="job-title" class="fw-bold">Job Title:</label>
-                <input type="text" class="form-control" id="job-title" placeholder="e.g. Full Stack Web Developer" name="job-title" required>
+                <input type="text" class="form-control" id="job-title" placeholder="e.g. Full Stack Web Developer" name="job-title" required autocomplete="off">
                 <br>
                 <label for="job-description" class="fw-bold">Job Description:</label>
                 <textarea name="job-description" id="job-description" class="form-control" rows="5" placeholder="Job Description Here" required></textarea>
@@ -86,7 +86,7 @@
                 </select>
                 <br>
                 <label for="skills" class="fw-bold">Skills Needed:</label>
-                <input type="text" class="form-control" name="skills" id="skills" placeholder="e.g. HTML, CSS, Javascript">
+                <input type="text" class="form-control" name="skills" id="skills" placeholder="e.g. HTML, CSS, Javascript" autocomplete="off">
                 <br>
                 <label class="fw-bold">Disabilities that are capable of the job:</label>
                 <div class="form-check">
