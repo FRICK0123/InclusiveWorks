@@ -126,6 +126,7 @@ class JobController extends Controller
 
         Pendingjob::create([
             'jobID' => $jobID,
+            'pwdID' => Session::get('pwdID'),
             'cover_letter' => $cover_letter,
             'pwd_resume' => $resume,
         ]);

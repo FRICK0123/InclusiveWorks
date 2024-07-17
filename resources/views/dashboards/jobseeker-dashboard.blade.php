@@ -46,10 +46,13 @@
                     </a>
                 </li>
 
-                <li class="nav-item text-center">
+                <li class="nav-item text-center" onclick="logC()">
                     <a href="#" class="nav-link">
+                        <form action="">
                         <img src="{{asset('images/icons/gear.svg')}}" alt="Home Icon" width="40">
                         <p class="link-label">Pending Jobs</p>
+                        </form>
+
                     </a>
                 </li>
                 
@@ -618,7 +621,7 @@
     <script src="{{asset('js/ph-address-selector.js')}}"></script>
 
     <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
+        document.addEventListener('DOMContentLoaded', (event) => {
             setTimeout(function() {
                 var alertElement = document.getElementById('pwdAlert');
                 if (alertElement) {
@@ -627,6 +630,10 @@
                 }
             }, 5000); // 5000 milliseconds = 5 seconds
         });
+
+        function logC(){
+            alert("Form Clicked");
+        }
     </script>
 </body>
 </html>

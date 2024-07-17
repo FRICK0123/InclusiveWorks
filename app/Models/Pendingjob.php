@@ -10,6 +10,7 @@ class Pendingjob extends Model
     use HasFactory;
     protected $fillable = [
         'jobID',
+        'pwdID',
         'cover_letter',
         'pwd_resume',
     ];

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pendingjobs', function (Blueprint $table) {
             $table->id('pending_job_id');
             $table->string('jobID');
+            $table->integer('pwdID');
             $table->text('cover_letter');
             $table->string('pwd_resume');
             $table->timestamps();
