@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jobposting;
 use App\Models\Jobseeker;
 use App\Models\Pendingjob;
 use Illuminate\Http\Request;
@@ -285,6 +286,15 @@ class JobseekersController extends Controller
 
         return view('jobs.pending-jobs',[
             'pendingJobs' => $pending_jobs,
+        ]);
+    }
+
+    //View Pending Job Application
+    public function viewPendingJob($jobID){
+        $job = Jobposting::where('jobID',$jobID)->first();
+
+        return view('jobs.view-pending-job',[
+            'jobInfo' => $job,
         ]);
     }
 }

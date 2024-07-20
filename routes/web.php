@@ -88,12 +88,18 @@ Route::post('/login/Authentication', [LoginController::class, 'loginAuthenticati
 //Route for Login end
 
 //Route for Dashboards
-    //Jobseekers Dashboard
-    Route::get('/jobseeker_dashboard', [DashboardController::class, 'jobseekerDashboard'])->name('jobseeker_dashboard');
-    //Jobseekers Dashboard Search
-    Route::post('/jobseeker_dashboard/search',[DashboardController::class, 'jobseekerDashboardSearch'])->name('jobseeker_dashboard_search');
+    //Jobseekers Dashboard Main
+        Route::get('/jobseeker_dashboard', [DashboardController::class, 'jobseekerDashboard'])->name('jobseeker_dashboard');
+        //Jobseekers Dashboard Search
+        Route::post('/jobseeker_dashboard/search',[DashboardController::class, 'jobseekerDashboardSearch'])->name('jobseeker_dashboard_search');
 
-    Route::post('pending_jobs/{pwdID}',[JobseekersController::class, 'pendingJobs'])->name('pending_jobs');
+        //Pending Jobs Page
+        Route::post('/pending_jobs/{pwdID}',[JobseekersController::class, 'pendingJobs'])->name('pending_jobs');
+
+        //View the details of the specific pending job
+        Route::post('view_pending_job/{jobID}',[JobseekersController::class, 'viewPendingJob'])->name('view_pending_job');
+
+    //Jobseekers Dashboard Main End
 
     //Employers Dashboard Routes
         //Employer Main Page

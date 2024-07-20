@@ -48,13 +48,15 @@
 
                 <li class="nav-item text-center" onclick="pendingJob()" style="background-color: rgb(84, 84, 84)">
                     <a href="#" class="nav-link">
-                        <form action="#" method="POST">
+                        <form action="{{route('pending_jobs',Session::get('pwdID'))}}" method="POST" id="pendingForm">
+                            @csrf
                             <img src="{{asset('images/icons/gear.svg')}}" alt="Home Icon" width="40">
                             <p class="link-label">Pending Jobs</p>
                         </form>
+
                     </a>
                 </li>
-                
+
                 <li class="nav-item text-center">
                     <a href="#" class="nav-link">
                         <img src="{{asset('images/icons/chats-circle.svg')}}" alt="Home Icon" width="40">
@@ -153,7 +155,7 @@
         </div>
         <!--Accessibility Tools Sidebar Contents End-->
         
-        <!--Menu Sidebar Contents-->
+        <!--Menu Sidebar Contents For smaller screen-->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="menucanvas" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header d-flex justify-content-between">
                 <h4 class="offcanvas-title fw-5" id="offcanvasExampleLabel">Menu</h4>
@@ -171,12 +173,13 @@
                         <h4 class="">Dashboard</h4>
                         <img src="{{asset('images/icons/gauge-black.svg')}}" alt="Dashboard Icon" class="img-fluid">
                     </a>
-                    <!--How it Works?-->
-                    <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
+                    <!--Pending Jobs-->
+                    <form action="{{route('pending_jobs',Session::get('pwdID'))}}" method="POST" class="container-fluid d-flex justify-content-between align-items-center" id="pendingFormMenu" onclick="pendingJob()">
+                        @csrf
                         <h4 class="">Pending Jobs</h4>
                         <img src="{{asset('images/icons/gear-black.svg')}}" alt="Pending Jobs Icon" class="img-fluid">
-                    </a>
-                    <!--Tools Description-->
+                    </form>
+                    <!--Messages-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">Messages</h4>
                         <img src="{{asset('images/icons/chats-circle-black.svg')}}" alt="Messages Icon" class="img-fluid">
@@ -335,7 +338,7 @@
             <!--Address Overlay-->
                 <div class="pwd-address-overlay align-items-center" id="pwd-address-overlay">
                     <div id="pwd-address-close" class="text-center" tabindex="0">
-                        <img src="images/icons/x-circle-white.svg" alt="Close" width="50">
+                        <img src="{{asset('images/icons/x-circle-white.svg')}}" alt="Close" width="50">
                         <label class="text-white" style="cursor: pointer;">Close</label>
                     </div>
                     <div class="container d-flex flex-column justify-content-center align-items-center">
@@ -581,9 +584,9 @@
 
         <table class="table">
             @foreach ($pendingJobs as $item)
-                <tr>
+                <tr class="border border-dark" onclick="pendingJobView('view_pending_job_{{ $item->jobID }}')">
                     <td id="pending_lists">
-                        <form action="#" method="POST" class="d-flex justify-content-between">
+                        <form action="{{ route('view_pending_job',$item->jobID) }}" method="POST" class="d-flex justify-content-between" id="view_pending_job_{{ $item->jobID }}">
                             @csrf
                             <p class="fw-bold">{{ $item->{'job-title'} }}</p>
                             <label class="mt-3" id="posted_label">Applied {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</label>
@@ -611,7 +614,11 @@
         });
 
         function pendingJob(){
-            document.getElementById('pendingForm').submit();
+            document.getElementById('pendingFormMenu').submit();
+        }
+
+        function pendingJobView(formID){
+            document.getElementById(formID).submit();
         }
     </script>
 </body>

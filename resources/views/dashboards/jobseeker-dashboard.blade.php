@@ -155,7 +155,7 @@
         </div>
         <!--Accessibility Tools Sidebar Contents End-->
         
-        <!--Menu Sidebar Contents-->
+        <!--Menu Sidebar Contents For smaller screen-->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="menucanvas" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header d-flex justify-content-between">
                 <h4 class="offcanvas-title fw-5" id="offcanvasExampleLabel">Menu</h4>
@@ -173,12 +173,13 @@
                         <h4 class="">Dashboard</h4>
                         <img src="{{asset('images/icons/gauge-black.svg')}}" alt="Dashboard Icon" class="img-fluid">
                     </a>
-                    <!--How it Works?-->
-                    <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
+                    <!--Pending Jobs-->
+                    <form action="{{route('pending_jobs',Session::get('pwdID'))}}" method="POST" class="container-fluid d-flex justify-content-between align-items-center" id="pendingFormMenu" onclick="pendingJob()">
+                        @csrf
                         <h4 class="">Pending Jobs</h4>
                         <img src="{{asset('images/icons/gear-black.svg')}}" alt="Pending Jobs Icon" class="img-fluid">
-                    </a>
-                    <!--Tools Description-->
+                    </form>
+                    <!--Messages-->
                     <a href="#" class="container-fluid d-flex justify-content-between align-items-center">
                         <h4 class="">Messages</h4>
                         <img src="{{asset('images/icons/chats-circle-black.svg')}}" alt="Messages Icon" class="img-fluid">
@@ -633,7 +634,7 @@
         });
 
         function pendingJob(){
-            document.getElementById('pendingForm').submit();
+            document.getElementById('pendingFormMenu').submit();
         }
     </script>
 </body>
